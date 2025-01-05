@@ -1,0 +1,30 @@
+-
+  name: Deploy webpage on linux servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install apache2 on Ubuntu/Debian
+      apt:
+        name: apache2
+        state: latest
+      when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+    - name: Start and enable apache2 on Ubuntu/Debian
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+    - name: Install HTTPD on RedHat/CentOS
+      dnf:
+        name: httpd
+        state: latest
+      when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+
+    - name: Start and enable HTTPD on RedHat/CentOS
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
