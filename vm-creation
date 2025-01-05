@@ -1,0 +1,46 @@
+---
+- name: Create a VM in GCP in my-vpc and my-subnet
+  hosts: local_group
+  gather_facts: no
+  tasks:
+    # Task 1: Create a VM instance in my-vpc and my-subnet
+    - name: Create a VM instance in my-vpc and my-subnet
+      gcp_compute_instance:
+        name: my-vm-instance-10
+        machine_type: n1-standard-1
+        zone: us-central1-a
+        project: "genuine-episode-443712-e6"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+        network_interfaces:
+          - network:
+              selfLink: "https://www.googleapis.com/compute/v1/projects/genuine-episode-443712-e6/global/networks/my-vpc"
+            subnetwork:
+              selfLink: "https://www.googleapis.com/compute/v1/projects/genuine-episode-443712-e6/regions/us-central1/subnetworks/my-subnet"
+            access_configs:
+              - name: External NAT
+                type: ONE_TO_ONE_NAT
+        disks:
+          - auto_delete: true
+            boot: true
+            initialize_params:
+              source_image: "projects/ubuntu-os-pro-cloud/global/images/ubuntu-pro-1604-xenial-v20241219"
+          - auto_delete: true
+            boot: false
+            initialize_params:
+              disk_size_gb: 10
+              source_image: "projects/ubuntu-os-pro-cloud/global/images/ubuntu-pro-1604-xenial-v20241219"
+        metadata:
+          ssh-keys: |
+            dell:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYvTBr6T4sdBXH9f3etHX+g6QhF7X99c/izWZ6/OgE0 dell@DESKTOP-EIDLQSO
+        tags:
+          items:
+            - http-server
+            - https-server
+        labels:
+          env: dev
+        service_accounts:
+          - email: ansible-role@genuine-episode-443712-e6.iam.gserviceaccount.com
+            scopes:
+              - https://www.googleapis.com/auth/cloud-platform
+      register: vm
