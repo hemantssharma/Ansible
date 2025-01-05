@@ -28,3 +28,7 @@
         state: started
         enabled: yes
       when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+    - name: Copy webpage to server destination
+      copy:
+        src: index.html
+        dest: /var/www/html
