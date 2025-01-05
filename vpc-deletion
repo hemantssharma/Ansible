@@ -1,0 +1,13 @@
+---
+- name: create vpc and subnet
+  hosts: localhost
+  tasks:
+    - name: create vpc
+      google.cloud.gcp_compute_network:
+        name: my-test-vpc
+        auto_create_subnetworks: false
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/service-account.json"
+        state: deletion
+      register: network
