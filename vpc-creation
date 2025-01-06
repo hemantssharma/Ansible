@@ -8,6 +8,6 @@
         auto_create_subnetworks: false
         project: genuine-episode-443712-e6
         auth_kind: serviceaccount
-        service_account_file: "/home/hemant_sharma/playbook/service-account.json"
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
         state: present
       register: network
