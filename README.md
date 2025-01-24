@@ -1,5 +1,4 @@
 # Ansible
-YAML files for Infra management in GCP
 
 #_Ansible Playbook: Create GCP VPC, Subnets, Firewall Rules, and VM
 
