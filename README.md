@@ -14,8 +14,7 @@ sudo apt update && sudo apt install ansible
 ansible-galaxy collection install google.cloud
 
 #Install pip and google-auth:
-sudo apt install pip
-sudo pip install google-auth
+sudo apt install pip && sudo pip install google-auth
 
 #GCP service account with the necessary permissions.
 #Service account key file in JSON format.
