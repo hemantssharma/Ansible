@@ -1,1 +1,36 @@
+---
+- name: create vpc and subnet
+  hosts: localhost
+  tasks:
+    - name: create vpc
+      google.cloud.gcp_compute_network:
+        name: my-test-vpc
+        auto_create_subnetworks: false
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/service-account.json"
+        state: present
+      register: network
 
+
+    - name: create a subnetwork in us-east1
+      google.cloud.gcp_compute_subnetwork:
+        name: subnet-1
+        region: us-east1
+        network: "{{ network }}"
+        ip_cidr_range: 10.0.1.0/24
+        project: "genuine-episode-443712-e6"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/service-account.json"
+        state: present
+
+    - name: create a subnetwork in us-west1
+      google.cloud.gcp_compute_subnetwork:
+        name: subnet-2
+        region: us-west1
+        network: "{{ network }}"
+        ip_cidr_range: 10.0.2.0/24
+        project: "genuine-episode-443712-e6"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/service-account.json"
+        state: present
