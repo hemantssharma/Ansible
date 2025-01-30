@@ -1,1 +1,119 @@
+---
+- name: Create GCP VPC, Subnets, and Firewall Rules
+  hosts: localhost
+  gather_facts: false
+  vars:
+    project_id: "genuine-episode-443712-e6"
+    region: "us-central1"
+    vpc_name: "my-vpc-network"
+    subnet_1_name: "my-subnet-1"
+    subnet_2_name: "my-subnet-2"
+    firewall_rule_internal: "allow-internal-traffic"
+    firewall_rule_ssh: "allow-ssh"
+    firewall_rule_http_https: "allow-http-https"
+    network_self_link: "https://www.googleapis.com/compute/v1/projects/{{ project_id }}/global/networks/{{ vpc_name }}"
 
+  tasks:
+    # Authenticate with Google Cloud using the service account credentials
+    - name: Set GOOGLE_APPLICATION_CREDENTIALS environment variable
+      ansible.builtin.set_fact:
+        ansible_env:
+          GOOGLE_APPLICATION_CREDENTIALS: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+
+    # Create the VPC network
+    - name: Create VPC Network
+      google.cloud.gcp_compute_network:
+        name: "{{ vpc_name }}"
+        auto_create_subnetworks: false
+        project: "{{ project_id }}"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+
+    # Create Subnet 1
+    - name: Create Subnet 1
+      google.cloud.gcp_compute_subnetwork:
+        name: "{{ subnet_1_name }}"
+        region: "{{ region }}"
+        ip_cidr_range: "10.0.1.0/24"
+        project: "{{ project_id }}"
+        network:
+          selfLink: "{{ network_self_link }}"  # Pass the network as a dictionary with selfLink key
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+
+    # Create Subnet 2
+    - name: Create Subnet 2
+      google.cloud.gcp_compute_subnetwork:
+        name: "{{ subnet_2_name }}"
+        region: "{{ region }}"
+        ip_cidr_range: "10.0.2.0/24"
+        project: "{{ project_id }}"
+        network:
+          selfLink: "{{ network_self_link }}"  # Pass the network as a dictionary with selfLink key
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+
+    # Create Firewall Rule to allow internal communication within the VPC
+    - name: Create Firewall Rule to allow internal traffic
+      google.cloud.gcp_compute_firewall:
+        name: "{{ firewall_rule_internal }}"
+        network:
+          selfLink: "{{ network_self_link }}"  # Pass the network as a dictionary with selfLink key
+        project: "{{ project_id }}"
+        allowed:
+          - ip_protocol: "tcp"
+            ports:
+              - "0-65535"
+          - ip_protocol: "udp"
+            ports:
+              - "0-65535"
+          - ip_protocol: "icmp"
+        source_ranges:
+          - "10.0.0.0/8"
+        direction: "INGRESS"
+        priority: 1000
+        target_tags: []
+        state: "present"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+
+    # Create Firewall Rule to allow SSH (port 22) access from anywhere
+    - name: Create Firewall Rule to allow SSH
+      google.cloud.gcp_compute_firewall:
+        name: "{{ firewall_rule_ssh }}"
+        network:
+          selfLink: "{{ network_self_link }}"  # Pass the network as a dictionary with selfLink key
+        project: "{{ project_id }}"
+        allowed:
+          - ip_protocol: "tcp"
+            ports:
+              - "22"
+        source_ranges:
+          - "0.0.0.0/0"
+        direction: "INGRESS"
+        priority: 1001
+        target_tags: []
+        state: "present"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+
+    # Create Firewall Rule to allow HTTP (port 80) and HTTPS (port 443) access from anywhere
+    - name: Create Firewall Rule to allow HTTP and HTTPS
+      google.cloud.gcp_compute_firewall:
+        name: "{{ firewall_rule_http_https }}"
+        network:
+          selfLink: "{{ network_self_link }}"  # Pass the network as a dictionary with selfLink key
+        project: "{{ project_id }}"
+        allowed:
+          - ip_protocol: "tcp"
+            ports:
+              - "80"
+              - "443"
+        source_ranges:
+          - "0.0.0.0/0"
+        direction: "INGRESS"
+        priority: 1002
+        target_tags: []
+        state: "present"
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
