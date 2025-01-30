@@ -1,0 +1,13 @@
+---
+- name: Delete vpc
+  hosts: localhost
+  tasks:
+    - name: Delete vpc
+      google.cloud.gcp_compute_network:
+        name: my-test-vpc
+        auto_create_subnetworks: false
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+        state: absent
+      register: network
