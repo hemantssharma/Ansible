@@ -1,9 +1,9 @@
-# Ansible Playbook: Create GCP VPC, Subnets, Firewall Rules, and VM**
+# Ansible Playbook: Create GCP VPC, Subnets, Firewall Rules, and VM
 
-**#_Overview:**
+**Overview:**
 This Ansible playbook creates a VPC, subnets, firewall rules, and a VM instance on Google Cloud Platform (GCP). It uses GCP modules to manage the resources.
 
-**Prerequisites:**
+# Prerequisites:
 
 **Ansible installed on your local machine:**
 ```
@@ -22,7 +22,7 @@ sudo pip install google-auth
 **GCP service account with the necessary permissions:**
 Service account key file in JSON format.
 
-# Playbook Details:**
+# Playbook Details:
 
 **Playbook Name:**
 ```
@@ -47,7 +47,7 @@ network_self_link: SelfLink of the VPC.
 service_account_file: Path to the service account key file.
 ```
 
-**#_Tasks:**
+**Tasks:**
 
 
 **1. Set GOOGLE_APPLICATION_CREDENTIALS Environment Variable**
