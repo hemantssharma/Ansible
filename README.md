@@ -8,10 +8,10 @@ This Ansible playbook creates a VPC, subnets, firewall rules, and a VM instance 
 #_Prerequisites:
 
 #Ansible installed on your local machine:
-```
+`
 sudo apt update
 sudo apt install ansible
-```
+`
 #Install google collection:
 ansible-galaxy collection install google.cloud
 
