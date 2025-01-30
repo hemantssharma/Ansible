@@ -56,3 +56,8 @@ To list the Ansible inventory hosts, use the following command:
 ```
 ansible-inventory --list
 ```
+
+Author
+```
+Hemant Sharma
+```
