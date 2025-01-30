@@ -1,9 +1,12 @@
-Ansible Installation:
->>> sudo apt update
->>> sudo apt install ansible
-
-host File location: /etc/ansible/hosts
-
+**# Ansible Installation:**
+```
+sudo apt update
+sudo apt install ansible
+```
+host File location: 
+```
+/etc/ansible/hosts
+```
 ##################################################################################
 ##################################################################################
 [local_group]
