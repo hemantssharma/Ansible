@@ -164,11 +164,11 @@ labels: Labels for the VM.
 service_accounts: Service accounts for the VM.
 ```
 
-**#_Ensure you have the necessary prerequisites installed and configured.**
+**#_Ensure you have the necessary prerequisites installed and configured:**
 Update the playbook with your specific details (e.g., project ID, region, VPC name, service account file path).
 
 
-**#_Run the playbook using the following command:**
+**Run the playbook using the following command:**
 ```
 ansible-playbook vpc-subnet-firewall_rule-vm-creation.yml
 ```
