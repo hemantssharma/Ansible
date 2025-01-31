@@ -37,7 +37,7 @@ Update the following variables in the playbook as needed:
 
 **Run the playbook:**
 
-    ```sh
+    ```
     ansible-playbook playbook.yml
     ```
 
