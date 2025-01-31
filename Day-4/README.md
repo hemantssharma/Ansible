@@ -52,7 +52,7 @@ Update the following variables in the playbook as needed:
     The playbook creates firewall rules to allow SSH, HTTP, and HTTPS traffic using the `google.cloud.gcp_compute_firewall` module.
 
 
-**Run the playbook using the following command:**
+- **Run the playbook using the following command:**
 ```
 ansible-playbook <playbook_name>
 ```
