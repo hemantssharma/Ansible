@@ -1,1 +1,54 @@
+---
+- name: retrieve vpc details and create firewall rules
+  hosts: localhost
+  tasks:
+    - name: get vpc details
+      google.cloud.gcp_compute_network_info:
+        filters:
+          - "name = my-test-vpc"
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+      register: network_info
 
+    - name: create firewall rule to allow SSH
+      google.cloud.gcp_compute_firewall:
+        name: allow-ssh
+        network: 
+          selfLink: "{{ network_info.resources[0].selfLink }}"
+        allowed:
+          - ip_protocol: tcp
+            ports: ["22"]
+        source_ranges: ["0.0.0.0/0"]
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+        state: present
+
+    - name: create firewall rule to allow HTTP
+      google.cloud.gcp_compute_firewall:
+        name: allow-http
+        network: 
+          selfLink: "{{ network_info.resources[0].selfLink }}"
+        allowed:
+          - ip_protocol: tcp
+            ports: ["80"]
+        source_ranges: ["0.0.0.0/0"]
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"
+        state: present
+
+    - name: create firewall rule to allow HTTPS
+      google.cloud.gcp_compute_firewall:
+        name: allow-https
+        network: 
+          selfLink: "{{ network_info.resources[0].selfLink }}"
+        allowed:
+          - ip_protocol: tcp
+            ports: ["443"]
+        source_ranges: ["0.0.0.0/0"]
+        project: genuine-episode-443712-e6
+        auth_kind: serviceaccount
+        service_account_file: "/home/hemant_sharma/playbook/genuine-episode-443712-e6-2c2870146782.json"        
+        state: present
