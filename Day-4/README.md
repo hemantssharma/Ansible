@@ -4,35 +4,29 @@ This Ansible playbook retrieves VPC details and creates firewall rules to allow 
 
 ## Prerequisites
 
-- Ansible installed on your local machine
-- GCP project with necessary permissions
-- Service account JSON key file for authentication
-
-## Environment Setup
-
-1. **Install Ansible:**
-
-    ```sh
-    sudo apt-get update
-    sudo apt-get install ansible
-    ```
-
-2. **Install Ansible GCP Collection:**
-
-    ```sh
-    ansible-galaxy collection install google.cloud
-    ```
-
-3. **Set up GCP Authentication:**
-
-    - Ensure you have a service account JSON key file.
-    - Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of your JSON key file:
-
-    ```sh
-    export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/service-account-file.json"
-    ```
+**Ansible installed on your local machine:**
+```
+sudo apt update
+sudo apt install ansible
+```
+**Install google collection:**
+```
+ansible-galaxy collection install google.cloud
+```
+**Install pip and google-auth:**
+```
+sudo apt install pip
+sudo pip install google-auth
+```
+**GCP service account with the necessary permissions:**
+Service account key file in JSON format.
 
 ## Playbook Configuration
+
+**Hosts:**
+```
+localhost
+```
 
 Update the following variables in the playbook as needed:
 
@@ -40,16 +34,8 @@ Update the following variables in the playbook as needed:
 - `service_account_file`: Path to your service account JSON key file.
 - `filters`: Filter to specify the VPC name.
 
-## Usage
 
-1. **Clone the repository:**
-
-    ```sh
-    git clone https://github.com/yourusername/gcp-vpc-firewall-playbook.git
-    cd gcp-vpc-firewall-playbook
-    ```
-
-2. **Run the playbook:**
+**Run the playbook:**
 
     ```sh
     ansible-playbook playbook.yml
@@ -64,3 +50,12 @@ Update the following variables in the playbook as needed:
 - **Create Firewall Rules:**
 
     The playbook creates firewall rules to allow SSH, HTTP, and HTTPS traffic using the `google.cloud.gcp_compute_firewall` module.
+**Run the playbook using the following command:**
+```
+ansible-playbook <playbook_name>
+```
+
+**Author**
+```
+Hemant Sharma
+```
