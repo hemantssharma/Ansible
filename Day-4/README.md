@@ -1,4 +1,4 @@
-# GCP VPC and Firewall Rules Ansible Playbook
+# Retrieve VPC details and create Firewall Rules Ansible Playbook
 
 This Ansible playbook retrieves VPC details and creates firewall rules to allow SSH, HTTP, and HTTPS traffic in a specified Google Cloud Platform (GCP) project.
 
