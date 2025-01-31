@@ -35,12 +35,6 @@ Update the following variables in the playbook as needed:
 - `filters`: Filter to specify the VPC name.
 
 
-**Run the playbook:**
-
-    ```
-    ansible-playbook playbook.yml
-    ```
-
 ## Playbook Details
 
 - **Retrieve VPC Details:**
