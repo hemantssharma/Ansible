@@ -7,10 +7,11 @@ To install Ansible, run the following commands:
 sudo apt update
 sudo apt install ansible
 ```
-**Install Google Cloud Collection:**
-To install the Google Cloud collection, run:
+**Install Google/AWS Cloud Collection:**
+To install the Google/AWS Cloud collection, run:
 ```
 ansible-galaxy collection install google.cloud
+ansible-galaxy collection install amazon.aws
 ```
 **Install Google Authentication:**
 To install Google authentication, run:
